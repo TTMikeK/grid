@@ -147,11 +147,11 @@ public:
 
     inline T* Dead( const int x, const int y ) {
         int index = DeadIndex(x, y);
-        return (index == -1) ? nullptr : &data[index];
+        return (index < 0) ? nullptr : &data[index];
     }
     inline const T* Dead( const int x, const int y ) const {
         int index = DeadIndex(x, y);
-        return (index == -1) ? nullptr : &data[index];
+        return (index < 0) ? nullptr : &data[index];
     }
 
 private:
