@@ -1,6 +1,5 @@
 #pragma once
 #include <string.h>
-#include <math.h>
 
 template<typename T>
 class Grid {
