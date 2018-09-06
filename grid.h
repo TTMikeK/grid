@@ -12,7 +12,7 @@ public:
         height(newHeight),
         data(new T[newWidth * newHeight])
     {
-        printf("Create %p\n", this);
+        //printf("Create %p\n", this);
     }
 
     inline Grid( const Grid& src ) :
@@ -21,12 +21,12 @@ public:
     {
         data = new T[src.width * src.height];
         memcpy(data, src.data, sizeof(T) * src.width * src.height);
-        printf("Copy %p\n", this);
+        //printf("Copy %p\n", this);
     }
 
     inline ~Grid() {
         delete [] data;
-        printf("Die %p\n", this);
+        //printf("Die %p\n", this);
     }
 
     /// Dimensions
