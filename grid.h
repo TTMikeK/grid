@@ -6,6 +6,7 @@ class Grid {
 public:
     Grid() = delete;
 
+    /// Must construct
     inline Grid( const int newWidth, const int newHeight ) :
         width(newWidth),
         height(newHeight),
@@ -28,20 +29,38 @@ public:
         printf("Die %p\n", this);
     }
 
+    /// Dimensions
     inline int Width() const {
         return width;
     }
-
     inline int Height() const {
         return height;
     }
 
-    inline T* operator*() {
+    /// Dereference as a pointer
+    inline T* operator *() {
         return data;
     }
-    inline T* operator*() const {
+    inline T* operator *() const {
         return data;
     }
+
+    /// Index as an array
+    inline T& operator []( const int index ) {
+        return data[index];
+    }
+    inline const T& operator []( const int index ) const {
+        return data[index];
+    }
+
+    // Index as a function
+    inline T& operator ()( const int x, const int y ) {
+        return Saturate(x, y);
+    }
+    inline const T& operator ()( const int x, const int y ) const {
+        return Saturate(x, y);
+    }
+
 
     /// When the desired usage is to wrap around
     inline int WrapIndex( const int x, const int y ) const {
@@ -54,7 +73,7 @@ public:
     inline T& Wrap( const int x, const int y ) {
         return data[WrapIndex(x, y)];
     }
-    inline T& Wrap( const int x, const int y ) const {
+    inline const T& Wrap( const int x, const int y ) const {
         return data[WrapIndex(x, y)];
     }
 
@@ -83,7 +102,7 @@ public:
     inline T& Saturate( const int x, const int y ) {
         return data[SaturateIndex(x, y)];
     }
-    inline T& Saturate( const int x, const int y ) const {
+    inline const T& Saturate( const int x, const int y ) const {
         return data[SaturateIndex(x, y)];
     }
 
@@ -113,7 +132,7 @@ public:
         int index = DeadIndex(x, y);
         return (index == -1) ? nullptr : &data[index];
     }
-    inline T* Dead( const int x, const int y ) const {
+    inline const T* Dead( const int x, const int y ) const {
         int index = DeadIndex(x, y);
         return (index == -1) ? nullptr : &data[index];
     }
