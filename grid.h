@@ -1,23 +1,47 @@
 #pragma once
+#include <string.h>
 
 template<typename T>
 class Grid {
 public:
     Grid() = delete;
 
-    Grid( const int newWidth, const int newHeight ) :
+    inline Grid( const int newWidth, const int newHeight ) :
         width(newWidth),
         height(newHeight),
         data(new T[newWidth * newHeight])
     {
+        printf("Create %p\n", this);
     }
 
-    Grid( Grid&& ) = default;
+    inline Grid( const Grid& src ) :
+        width(src.width),
+        height(src.height)
+    {
+        data = new T[src.width * src.height];
+        memcpy(data, src.data, sizeof(T) * src.width * src.height);
+        printf("Copy %p\n", this);
+    }
 
-    ~Grid() {
+    inline ~Grid() {
         delete [] data;
+        printf("Die %p\n", this);
     }
 
+    inline int Width() const {
+        return width;
+    }
+
+    inline int Height() const {
+        return height;
+    }
+
+    inline T* operator*() {
+        return data;
+    }
+    inline T* operator*() const {
+        return data;
+    }
 
     /// When the desired usage is to wrap around
     inline int WrapIndex( const int x, const int y ) const {
