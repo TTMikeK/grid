@@ -73,7 +73,6 @@ public:
     }
 
 
-
     /// When the desired usage is to wrap around
     inline int WrapIndex( const int x, const int y ) const {
         // Double mod version
