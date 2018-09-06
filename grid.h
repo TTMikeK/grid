@@ -97,20 +97,26 @@ public:
 
     /// When the desired usage is clamp or align to the edges
     inline int SaturateIndex( const int x, const int y ) const {
-        int newX = x;
+        int newX;
         if ( x < 0 ) {
             newX = 0;
         }
         else if ( x >= width ) {
             newX = width - 1;
         }
+        else {
+            newX = x;
+        }
 
-        int newY = y;
+        int newY;
         if ( y < 0 ) {
             newY = 0;
         }
         else if ( y >= height ) {
             newY = height - 1;
+        }
+        else {
+            newY = y;
         }
 
         return (newY * width) + newX;
@@ -126,20 +132,26 @@ public:
 
     /// When the desired usage is to treat the outside as dead
     inline int DeadIndex( const int x, const int y ) const {
-        int newX = x;
+        int newX;
         if ( x < 0 ) {
             return -1;
         }
         else if ( x >= width ) {
             return -1;
         }
+        else {
+            newX = x;
+        }
 
-        int newY = y;
+        int newY;
         if ( y < 0 ) {
             return -1;
         }
         else if ( y >= height ) {
             return -1;
+        }
+        else {
+            newY = y;
         }
 
         return (newY * width) + newX;
