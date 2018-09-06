@@ -1,5 +1,6 @@
 #pragma once
 #include <string.h>
+#include <math.h>
 
 template<typename T>
 class Grid {
@@ -36,6 +37,9 @@ public:
     inline int Height() const {
         return height;
     }
+    inline int Size() const {
+        return width * height;
+    }
 
     /// Dereference as a pointer
     inline T* operator *() {
@@ -61,11 +65,26 @@ public:
         return Saturate(x, y);
     }
 
+    /// Fill the grid with a value
+    inline void Fill( const T& what ) {
+        for ( int idx = 0; idx < Size(); ++idx ) {
+            data[idx] = what;
+        }
+    }
+
+
 
     /// When the desired usage is to wrap around
     inline int WrapIndex( const int x, const int y ) const {
+        // Double mod version
+//        int newX = ((x % width) + width) % width;
+//        int newY = ((y % height) + height) % height;
+
+        // Branch version (should be faster)
         int newX = x % width;
+        newX = (newX < 0) ? (newX + width) : newX;
         int newY = y % height;
+        newY = (newY < 0) ? (newY + height) : newY;
 
         return (newY * width) + newX;
     }
